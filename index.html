@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Canvas Crawler</title>
+  <link href="https://fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Mountains+of+Christmas:wght@700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="container">
+    <aside id="top-left"><h2>SLIME</h2></aside>
+    <aside id="top-right"><h2 id="movement"></h2></aside>
+    <main>
+        <canvas id="game"><!-- play it, a game --></canvas>
+    </main>
+    <aside id="btm-left"><h2 id = "health">100</h2></aside>
+    <aside id="btm-right"><h2 id="status">ESCAPE THE CAVE</h2></aside>
+ </div> 
+ <div id = 'gameMessage'>
+   <button id = 'restartBtn'>PLAY AGAIN</button>
+   <button id = 'playBtn'>START</button>
+   <p id = 'text'>Escape from the cave<br><br>Up arrow to jump<br>Left arrow to go left<br>Right arrow to go right<br><br>Be careful the cave is covered in slime</p>
+   <p id = 'deathMessage'>BETTER LUCK NEXT TIME</p>
+   <p id = 'winMessage'>TRY NOT TO FALL IN AGAIN</p>
+  </div>
+  <script src="appTest.js"></script>
+</body>
+</html>

@@ -1,0 +1,171 @@
+html,body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Press Start 2P', monospace;
+    
+  }
+  
+  body {
+    padding-top: 1em;
+    text-align: center;
+    /* background-color: black; */
+    background-image: url("https://i.imgur.com/dsccw0w.jpg");
+    /* background-image: url('../img/dungeonhell.png'); */
+    background-size: cover;
+    background-repeat: space;
+    min-width: 1000px;
+  }
+  
+  h1, h2 {
+    /* font-family: 'Press Start 2P', monospace; */
+    /* font-family: monospace; */
+    color: #5fc9b8;
+    
+  }
+  
+  canvas {
+    /* background-color: black; */
+    background-image: url("https://i.imgur.com/8ybrs20.png");
+    background-repeat: repeat;
+    /* background-position: contain; */
+    width: 100%;
+    height: 100%;
+  }
+  
+  #container {
+  max-width: 61em;
+  /* height: 70vh; */
+  background-image: url("https://i.imgur.com/VOfwEvT.jpg");
+  background-repeat: repeat;
+  margin: 0 auto;
+  padding: 1em;
+  display: grid;
+  grid-gap: 1em;
+  grid-template-rows: .25fr .5fr .25fr;
+  grid-template-columns: .25fr .5fr .25fr;
+  grid-template-areas: "top-left top-left top-right"
+                        "game game game"
+                        "btm-left btm-right btm-right";
+  }
+  
+  #top-left, #top-right, #btm-left, #btm-right {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #1b1333;
+  }
+  
+  #top-left {
+    grid-area: top-left;
+    /* font-size: 30px; */
+  }
+  
+  #top-right {
+    grid-area: top-right;
+    /* background-color: #222; */
+    /* background-image: url('../img/funky-lines.png'); */
+  }
+  
+  main {
+    grid-area: game;
+  }
+  
+  
+  #btm-left {
+    grid-area: btm-left;
+    /* background-color: #222; */
+  }
+  
+  #btm-right {
+    grid-area: btm-right;
+    /* background-color: #222; */
+  }
+
+  #gameMessage{
+    background-color: rgba(43, 26, 69, .9);
+    /* position: fixed;
+    top: 22%;
+    left: 10%;
+    height: 340px;
+    width: 800px;
+    padding: 10px; */
+    border: 5px solid white;
+    /* display: none; */
+    width: 800px; 
+    height: 400px; 
+    position: absolute; 
+    margin:200px -400px -200px 400px;
+    bottom:50%;
+    right:50%;
+    display: block;
+  }
+
+  #text{
+    width: 800px; 
+    height: 300px; 
+    position: absolute; 
+    margin:150px -400px -150px 400px;
+    bottom:50%;
+    right:50%;
+    display: inline-block;
+    font-size: 20px;
+    color: #5fc9b8;
+    line-height: 30px;
+    display: block;
+    
+  }
+  #deathMessage{
+    width: 800px; 
+    height: 300px; 
+    position: absolute; 
+    margin:150px -400px -150px 400px;
+    bottom:50%;
+    right:50%;
+    display: inline-block;
+    font-size: 20px;
+    color: #5fc9b8;
+    line-height: 30px;
+    display: none;
+    
+  }
+  #winMessage{
+    width: 800px; 
+    height: 300px; 
+    position: absolute; 
+    margin:150px -400px -150px 400px;
+    bottom:50%;
+    right:50%;
+    display: inline-block;
+    font-size: 20px;
+    color: #5fc9b8;
+    line-height: 30px;
+    display: none;
+    
+  }
+  #restartBtn{
+    width: 150px; 
+    height: 30px; 
+    position: absolute; 
+    margin:15px -75px -15px 75px;
+    bottom:10%;
+    right:50%;
+
+    color: #5fc9b8;
+    background-color: #1b1333;
+    font-family: 'Press Start 2P', monospace;
+    display: none;
+    
+  }
+  #playBtn{
+    width: 150px; 
+    height: 30px; 
+    position: absolute; 
+    margin:15px -75px -15px 75px;
+    bottom:10%;
+    right:50%;
+
+    color: #5fc9b8;
+    background-color: #1b1333;
+    font-family: 'Press Start 2P', monospace;
+    display: block;
+  }
