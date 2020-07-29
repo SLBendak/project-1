@@ -119,7 +119,7 @@ let status = 'ESCAPE THE CAVE';
 let yVelocity=0;
 let xVelocity=0;
 let holdLeft=holdRight=false;
-let holdUp=false;
+// let holdUp=false;
 
 let gravity=.5;
 let grounded=true;
@@ -481,7 +481,7 @@ const gameLoop = () => {
   if (hero.alive) {
   
     hero.render()
-   console.log('hero rendered');
+  //  console.log('hero rendered');
   }
 
   hero.x+=xVelocity;
@@ -490,35 +490,34 @@ const gameLoop = () => {
   if (grounded) {
       xVelocity *= 1;
       gravity=0;
-  } else {
+  } 
+  else {
 
     gravity=.5;
     yVelocity += gravity;
-    console.log('this is the y velocity: ', yVelocity);
+    // console.log('this is the y velocity: ', yVelocity);
       
   }
 
-  // grounded=false;
+  grounded=false;
   for (i=0;i<plat.length;i++){
-
-
-
     if (hero.x+10 >= plat[i].x && 
-        hero.x <= plat[i].x + plat[i].width &&
-        hero.y >= plat[i].y && 
-        hero.y <= plat[i].y + plat[i].height &&
-        yVelocity > 0) {
-          grounded=true;
-          yVelocity=0;
-          hero.y = plat[i].y;
+      hero.x <= plat[i].x + plat[i].width &&
+      hero.y >= plat[i].y && 
+      hero.y <= plat[i].y + plat[i].height) //yVelocity > 0
+      {
+        grounded=true;
+        yVelocity=0;
+        hero.y = plat[i].y;
+        
+        console.log('landing');
           
-          console.log('landing');
           
-          
-    } else{
-      grounded=false;
+    } 
+    // else {
+    //   grounded=false;
       
-    }
+    // }
     //  else {
     //   grounded = false;
       
@@ -581,11 +580,14 @@ function keyDown(e) {
           xVelocity=-5;
           break;
       case 38:
-          if (grounded) {
-              grounded = false;
-              yVelocity=-5;
-              holdUp=true;
-          }
+        if (grounded == true) {
+          yVelocity=-5;
+        }
+          // if (grounded) {
+          //     grounded = false;
+          //     yVelocity=-5;
+          //     holdUp=true;
+          // }
           break;
       case 39:
           holdRight=true;
@@ -598,12 +600,12 @@ function keyUp(e) {
       case 37:
           holdLeft=false;
           break;
-      // case 38:
-      //     if (yVelocity<-3) {
-      //         yVelocity-=3;
-      //         holdUp=false;
-      //     }
-          // break;
+      case 38:
+          if (yVelocity<-3) {
+              yVelocity-=3;
+              // holdUp=false;
+          }
+          break;
       case 39:
           holdRight=false;
           break;

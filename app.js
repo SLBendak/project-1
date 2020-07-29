@@ -379,40 +379,68 @@ function gameEdge() {
     health = 0;
     xVelocity=0;
     yVelocity=0;
-    gravity=0;
+    // gravity=0;
   }
   
 }
 
 function lose(){
   if (health == 0){
-
+    currentStatus.textContent='YOU DIED!'
     for (var i = 0; i < plat.length; i++) {
       ctx.fillStyle = (plat[i].color);
       ctx.fillRect(plat[i].x, plat[i].y, plat[i].width, plat[i].height);
     } 
 
-    status = 'YOU DIED!';
+    // status = 'YOU DIED!';
     clearInterval(runGame);
-    xVelocity=0;
-    yVelocity=0;
-    gravity=0;
+    // xVelocity=0;
+    // yVelocity=0;
+    // gravity=0;
+    
     message.style.display = 'block';
     restartButton.style.display = 'block';
+    fail.style.display = 'block';
+    
+    
+    hero = new Crawler(120, 380, 15, -15, 'white');
     
   }
 }
 function win(){
+
+  for (var i = 0; i < plat.length; i++) {
+    ctx.fillStyle = (plat[i].color);
+    ctx.fillRect(plat[i].x, plat[i].y, plat[i].width, plat[i].height);
+  } 
+
   if (hero.x <= 30 && hero.y <= 60){
-    status = 'YOU ESCAPED!'
+    currentStatus.textContent='YOU ESCAPED!'
     xVelocity=0;
     clearInterval(runGame);
+    hero.alive=false;
     // yVelocity=0;
+    message.style.display = 'block';
+    restartButton.style.display = 'block';
+    complete.style.display = 'block';
+
+    hero = new Crawler(120, 380, 15, -15, 'white');
+
   }
+  
 }
 
 function startGame(){
   runGame = setInterval(gameLoop, 60);
+  message.style.display = 'none';
+  playButton.style.display = 'none';
+  restartButton.style.display = 'none';
+  instructions.style.display = 'none';
+  complete.style.display = 'none';
+  health = 100;
+  xVelocity=0;
+  currentStatus.textContent='ESCAPE THE CAVE'
+  console.log('game started');
 }
 
 
