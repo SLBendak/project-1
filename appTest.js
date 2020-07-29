@@ -121,7 +121,7 @@ let xVelocity=0;
 let holdLeft=holdRight=false;
 // let holdUp=false;
 
-let gravity=.5;
+let gravity=1.5;
 let grounded=true;
 
 
@@ -134,7 +134,7 @@ let exit;
 let health = 100;
 
 
-
+//plat 1
 plat.push({
     x: 100,
     y: 380,
@@ -142,6 +142,15 @@ plat.push({
     height: 20,
     color: '#1d7a63'
 });
+tite.push({
+  x: 110,
+  y: 360,
+  width: 10,
+  height: 20,
+  color: 'lightblue'
+});
+//
+//plat 2
 plat.push({
     x: 280,
     y: 360,
@@ -149,6 +158,14 @@ plat.push({
     height: 40,
     color: '#1d7a63'
 });
+tite.push({
+  x: 310,
+  y: 340,
+  width: 10,
+  height: 20,
+  color: 'lightblue'
+});
+//
 plat.push({
   x: 430,
   y: 350,
@@ -156,20 +173,7 @@ plat.push({
   height: 50,
   color: '#1d7a63'
 });
-tite.push({
-  x: 460,
-  y: 330,
-  width: 10,
-  height: 20,
-  color: 'lightblue'
-});
-tite.push({
-  x: 590,
-  y: 360,
-  width: 10,
-  height: 20,
-  color: 'lightblue'
-});
+//plat 4
 plat.push({
   x: 590,
   y: 380,
@@ -177,6 +181,14 @@ plat.push({
   height: 20,
   color: '#1d7a63'
 });
+tite.push({
+  x: 610,
+  y: 360,
+  width: 10,
+  height: 20,
+  color: 'lightblue'
+});
+//
 plat.push({
   x: 700,
   y: 350,
@@ -191,6 +203,7 @@ plat.push({
   height: 20,
   color: '#1d7a63'
 });
+//play 7
 plat.push({
   x: 640,
   y: 270,
@@ -198,6 +211,14 @@ plat.push({
   height: 20,
   color: '#1d7a63'
 });
+tite.push({
+  x: 660,
+  y: 250,
+  width: 10,
+  height: 20,
+  color: 'lightblue'
+});
+//
 plat.push({
   x: 740,
   y: 240,
@@ -212,6 +233,7 @@ plat.push({
   height: 20,
   color: '#1d7a63'
 });
+//plat 10
 plat.push({
   x: 470,
   y: 250,
@@ -219,6 +241,14 @@ plat.push({
   height: 20,
   color: '#1d7a63'
 });
+tite.push({
+  x: 480,
+  y: 230,
+  width: 10,
+  height: 20,
+  color: 'lightblue'
+});
+//
 plat.push({
   x: 330,
   y: 270,
@@ -240,13 +270,22 @@ plat.push({
   height: 20,
   color: '#1d7a63'
 });
+// plat 14
 plat.push({
   x: 20,
   y: 260,
-  width: 60,
+  width: 50,
   height: 20,
   color: '#1d7a63'
 });
+tite.push({
+  x: 30,
+  y: 240,
+  width: 10,
+  height: 20,
+  color: 'lightblue'
+});
+//
 plat.push({
   x: 0,
   y: 210,
@@ -254,6 +293,7 @@ plat.push({
   height: 20,
   color: '#1d7a63'
 });
+//plat 16
 plat.push({
   x: 100,
   y: 170,
@@ -261,6 +301,15 @@ plat.push({
   height: 20,
   color: '#1d7a63'
 });
+tite.push({
+  x: 120,
+  y: 150,
+  width: 10,
+  height: 20,
+  color: 'lightblue'
+});
+//
+//plat 17
 plat.push({
   x: 220,
   y: 180,
@@ -268,6 +317,14 @@ plat.push({
   height: 20,
   color: '#1d7a63'
 });
+tite.push({
+  x: 270,
+  y: 160,
+  width: 10,
+  height: 20,
+  color: 'lightblue'
+});
+//
 plat.push({
   x: 330,
   y: 160,
@@ -282,6 +339,7 @@ plat.push({
   height: 20,
   color: '#1d7a63'
 });
+//plat 20
 plat.push({
   x: 580,
   y: 130,
@@ -289,6 +347,15 @@ plat.push({
   height: 20,
   color: '#1d7a63'
 });
+tite.push({
+  x: 620,
+  y: 110,
+  width: 10,
+  height: 20,
+  color: 'lightblue'
+});
+//
+//plat 15
 plat.push({
   x: 720,
   y: 100,
@@ -296,17 +363,25 @@ plat.push({
   height: 20,
   color: '#1d7a63'
 });
+tite.push({
+  x: 760,
+  y: 80,
+  width: 10,
+  height: 20,
+  color: 'lightblue'
+});
+//
 plat.push({
   x: 640,
   y: 70,
-  width: 40,
+  width: 30,
   height: 20,
   color: '#1d7a63'
 });
 plat.push({
   x: 550,
   y: 40,
-  width: 40,
+  width: 30,
   height: 20,
   color: '#1d7a63'
 });
@@ -320,19 +395,19 @@ plat.push({
 plat.push({
   x: 300,
   y: 60,
-  width: 40,
+  width: 30,
   height: 20,
   color: '#1d7a63'
 });
 plat.push({
-  x: 200,
+  x: 230,
   y: 100,
-  width: 40,
+  width: 30,
   height: 20,
   color: '#1d7a63'
 });
 plat.push({
-  x: 100,
+  x: 140,
   y: 60,
   width: 40,
   height: 20,
@@ -387,17 +462,21 @@ const detectHit = () => {
     //     yVelocity=-2;
     // }
     //                                              NEEDS TO BE FIXED
+
+
     for (i=0;i<tite.length;i++){
       if (hero.x + hero.width > tite[i].x &&
-        hero.x < tite[i].x + tite[i].width &&
+        hero.x + 5 < tite[i].x + tite[i].width &&
         hero.y + hero.height > tite[i].y &&
-        hero.y < tite[i].y + tite[i].height)
+        hero.y - 1< tite[i].y + tite[i].height)
       {
         // enemy = false;
-        health -= 50;
-        hero.y = tite[i].y;
+        health -= 5;
+        // hero.y = tite[i].y;
         console.log('collision!')
-        yVelocity=-2;
+        yVelocity=-1;
+        // gavity=2;
+        xVelocity*= -1;
       }
     }
 }
@@ -432,7 +511,7 @@ function lose(){
     fail.style.display = 'block';
     
     
-    hero = new Crawler(120, 380, 15, -15, 'white');
+    hero = new Crawler(140, 380, 15, -15, 'white');
     
   }
 }
@@ -453,7 +532,7 @@ function win(){
     restartButton.style.display = 'block';
     complete.style.display = 'block';
 
-    hero = new Crawler(120, 380, 15, -15, 'white');
+    hero = new Crawler(140, 380, 15, -15, 'white');
 
   }
   
@@ -466,6 +545,7 @@ function startGame(){
   restartButton.style.display = 'none';
   instructions.style.display = 'none';
   complete.style.display = 'none';
+  fail.style.display = 'none';
   health = 100;
   xVelocity=0;
   currentStatus.textContent='ESCAPE THE CAVE'
@@ -499,6 +579,8 @@ const gameLoop = () => {
       
   }
 
+  
+
   grounded=false;
   for (i=0;i<plat.length;i++){
     if (hero.x+10 >= plat[i].x && 
@@ -514,6 +596,8 @@ const gameLoop = () => {
           
           
     } 
+
+
     // else {
     //   grounded=false;
       
@@ -553,7 +637,7 @@ const gameLoop = () => {
     lose();
     win();
 
-    hero.render();
+    // hero.render();
    
     gameEdge();
     detectHit(); 
@@ -564,7 +648,7 @@ const gameLoop = () => {
       ctx.fillStyle = (plat[i].color);
       ctx.fillRect(plat[i].x, plat[i].y, plat[i].width, plat[i].height);
     } 
-
+    hero.render();
     // print stalagtite
     // for (var i = 0; i < tite.length; i++) {
     //   ctx.fillStyle = (tite[i].color);
@@ -633,7 +717,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // CHARACTER REFS
   // btm = new Crawler(0, 10, 800, 5, 'black')
   // enemy = new Crawler(300, 340, 10, 20+15, 'lightblue');
-  hero = new Crawler(120, 40, 15, -15, 'white');
+  hero = new Crawler(140, 340, 15, -15, 'white');
   exit = new Crawler(0, 0, 40, 60, 'orange')
   // 120, 380 START POINT
   // plat = new Platform(plat[i].x, plat[i].y, plat[i].width, plat[i].height, plat[i].color);
