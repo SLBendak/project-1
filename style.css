@@ -8,33 +8,26 @@ html,body {
   body {
     padding-top: 1em;
     text-align: center;
-    /* background-color: black; */
     background-image: url("https://i.imgur.com/dsccw0w.jpg");
-    /* background-image: url('../img/dungeonhell.png'); */
     background-size: cover;
     background-repeat: space;
     min-width: 1000px;
   }
   
   h1, h2 {
-    /* font-family: 'Press Start 2P', monospace; */
-    /* font-family: monospace; */
     color: #5fc9b8;
     
   }
   
   canvas {
-    /* background-color: black; */
     background-image: url("https://i.imgur.com/8ybrs20.png");
     background-repeat: repeat;
-    /* background-position: contain; */
     width: 100%;
     height: 100%;
   }
   
   #container {
   max-width: 61em;
-  /* height: 70vh; */
   background-image: url("https://i.imgur.com/VOfwEvT.jpg");
   background-repeat: repeat;
   margin: 0 auto;
@@ -57,13 +50,10 @@ html,body {
   
   #top-left {
     grid-area: top-left;
-    /* font-size: 30px; */
   }
   
   #top-right {
     grid-area: top-right;
-    /* background-color: #222; */
-    /* background-image: url('../img/funky-lines.png'); */
   }
   
   main {
@@ -73,24 +63,15 @@ html,body {
   
   #btm-left {
     grid-area: btm-left;
-    /* background-color: #222; */
   }
   
   #btm-right {
     grid-area: btm-right;
-    /* background-color: #222; */
   }
 
   #gameMessage{
     background-color: rgba(43, 26, 69, .9);
-    /* position: fixed;
-    top: 22%;
-    left: 10%;
-    height: 340px;
-    width: 800px;
-    padding: 10px; */
     border: 5px solid white;
-    /* display: none; */
     width: 800px; 
     height: 400px; 
     position: absolute; 

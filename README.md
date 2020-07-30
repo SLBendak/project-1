@@ -1,4 +1,4 @@
-# SLIME
+# SLIME https://slbendak.github.io/project-1/
 
 #### For my game project i built a classic style platformer with a fun twist, much like my character there were many obstacles to overcome along the way to success. 
 
@@ -166,7 +166,7 @@ function keyUp(e) {
           break;
       case 38:
           if (yVelocity<-3) {
-              yVelocity-=3;
+              yVelocity+=3;
           }
           break;
       case 39:

@@ -515,7 +515,7 @@ const gameLoop = () => {
   // clear the cavas
     ctx.clearRect(0, 0, game.width, game.height);
   // display the x, y coordinates of our hero onto the DOM
-    movementDisplay.textContent = `X:${hero.x}\nY:${hero.y}`;
+    movementDisplay.textContent = `Depth:${hero.y}`;
   // display health of hero on DOM
     currentHealth.textContent = `${health}`;
   // display status
@@ -572,7 +572,7 @@ function keyUp(e) {
           break;
       case 38:
           if (yVelocity<-3) {
-              // yVelocity-=3;
+              yVelocity+=3;
           }
           break;
       case 39:

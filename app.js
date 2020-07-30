@@ -265,7 +265,7 @@ tite.push({
   width: 10,
   height: 20,
   color: 'lightblue',
-  img: "https://i.imgur.com/UrwoLS0.png",
+  img: "lightblue",
   
 });
 //
@@ -321,39 +321,17 @@ plat.push({
 });
 
 // Crawler Constructor function
-//function Crawler(x, y, width, height, image, imgWidth, imgHeight, cols, rows){
 function Crawler(x, y, width, height) {
   this.x = x;
   this.y = y;
   this.width = width;
   this.height = height;
-  // this.color = color;
   this.alive = true;
-  
-  //this.sprite.src = image;
-  // this.imgWidth = imgWidth;
-  // this.imgHeight = imgHeight;
-  // this.cols = cols;
-  // this.rows = rows;
-  // this.spriteWidth = imgWidth / cols;
-  // this.spriteHeight = imgHeight / rows;
-  // this.currentFrame = 0;
-  // this.srcX;
-  // this.srcY;
-  // this.srcy = 0;
-  //this.animations = animations;
   this.render = function() {
-    // ctx.fillStyle = this.color;
-    // ctx.fillRect(this.x, this.y, this.width, this.height);
-    // ctx.drawImage(currentInput, this.srcX, this.srcY, this.x - 20, this.y - 40, 40, 40, this.cols, 0)
-    
-    
-    
-
     ctx.drawImage(currentInput, frameX, frameY, 64,  78, this.x - 20, this.y - 40, 40, 50);
-    //ctx.drawImage(character,srcX,srcY,width,height,x,y,width,height); REFERENCE
   }
 }
+
 function animationStepper(){
   if (currentInput===moveRight){
     
@@ -385,16 +363,6 @@ function animationStepper(){
     frameY=0;
     frameX=0;
     frameCount=1;
-    // frameY=0;
-    // if (frameCount<9) {
-    //   frameCount++;
-    //   frameX+=63.88888888888;
-    // } else {
-    //   frameCount=1;
-    //   frameX=0;
-    // }
-    // console.log(frameCount);
-    // console.log(frameY);
   }
 }
 
@@ -479,11 +447,8 @@ function startGame(){
   
 }
 
-
-
-
-
 const gameLoop = () => {
+
   animations();
   animationStepper();
 
@@ -508,19 +473,13 @@ const gameLoop = () => {
         grounded=true;
         yVelocity=0;
         hero.y = plat[i].y + 2;
-        // console.log('landing');   
     } 
   } 
 
-  // clear the cavas
     ctx.clearRect(0, 0, game.width, game.height);
-  // display the x, y coordinates of our hero onto the DOM
-    movementDisplay.textContent = `X:${hero.x}\nY:${hero.y}`;
-  // display health of hero on DOM
+    movementDisplay.textContent = `Depth:\n${hero.y}`;
     currentHealth.textContent = `${health}`;
-  // display status
     currentStatus.textContent = `${status}`;
-
 
     ctx.drawImage(exitCave, 0, 0, 80, 100)
 
@@ -534,15 +493,12 @@ const gameLoop = () => {
    
     gameEdge();
     detectHit(); 
-  
 
     // print walls
     for (var i = 0; i < plat.length; i++) {
       ctx.drawImage(ledge, plat[i].x, plat[i].y, plat[i].width, plat[i].height);
     } 
 
-    
-    ///setting default 
     hero.render();
 }
 
@@ -572,7 +528,7 @@ function keyUp(e) {
           break;
       case 38:
           if (yVelocity<-3) {
-              // yVelocity-=3;
+              yVelocity+=3;
           }
           break;
       case 39:
@@ -582,6 +538,7 @@ function keyUp(e) {
           break;
   }
 }
+
 document.addEventListener('DOMContentLoaded', () => {
   console.log('Dom loaded')
   // DOM REFS
@@ -596,7 +553,7 @@ document.addEventListener('DOMContentLoaded', () => {
   fail = document.getElementById('deathMessage');
   instructions = document.getElementById('text');
   complete = document.getElementById('winMessage'); 
-/////// MOVEMENT
+  /////// MOVEMENT
   moveLeft = document.createElement('img');
   moveLeft.setAttribute('src', "./assets/images/walkLEFT.png");
 
@@ -605,7 +562,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   moveUp = document.createElement('img');
   moveUp.setAttribute('src', "./assets/images/Falling.png");
-///////
+  /////// SPRITES
   rock = document.createElement('img');
   rock.setAttribute('src', "https://i.imgur.com/UrwoLS0.png");
 
@@ -614,7 +571,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   exitCave = document.createElement('img');
   exitCave.setAttribute('src', "https://i.imgur.com/sKb7XhR.png");
-
   // CANVAS CONFIG
   game.setAttribute('height', 400);
   game.setAttribute('width', 800);
