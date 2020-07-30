@@ -336,7 +336,7 @@ function animationStepper(){
   if (currentInput===moveRight){
     
     frameY=0;
-    if (frameCount<9) {
+    if (frameCount<8) {
       frameCount++;
       frameX+=64;
     } else {
@@ -349,7 +349,7 @@ function animationStepper(){
   if (currentInput===moveLeft){
     
     frameY=0;
-    if (frameCount<9) {
+    if (frameCount<8) {
       frameCount++;
       frameX+=64;
     } else {
