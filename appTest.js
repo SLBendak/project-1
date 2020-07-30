@@ -9,7 +9,13 @@ let btm;
 let status = 'ESCAPE THE CAVE';
 let yVelocity=0;
 let xVelocity=0;
-let holdLeft=holdRight=false;
+let holdLeft=false;
+let holdRight=false;
+let frameCount=1;
+let frameY=0;
+let frameX=0;
+
+let currentInput;
 
 let gravity=1.5;
 let grounded=true;
@@ -102,7 +108,7 @@ plat.push({
   color: '#1d7a63'
 });
 tite.push({
-  x: 660,
+  x: 650,
   y: 250,
   width: 10,
   height: 20,
@@ -271,7 +277,7 @@ plat.push({
   color: '#1d7a63'
 });
 plat.push({
-  x: 550,
+  x: 570,
   y: 40,
   width: 30,
   height: 20,
@@ -285,8 +291,8 @@ plat.push({
   color: '#1d7a63'
 });
 plat.push({
-  x: 300,
-  y: 60,
+  x: 330,
+  y: 50,
   width: 30,
   height: 20,
   color: '#1d7a63'
@@ -315,33 +321,99 @@ plat.push({
 });
 
 // Crawler Constructor function
-function Crawler(x, y, width, height, color) {
+//function Crawler(x, y, width, height, image, imgWidth, imgHeight, cols, rows){
+function Crawler(x, y, width, height) {
   this.x = x;
   this.y = y;
   this.width = width;
   this.height = height;
-  this.color = color;
+  // this.color = color;
   this.alive = true;
+  
+  //this.sprite.src = image;
+  // this.imgWidth = imgWidth;
+  // this.imgHeight = imgHeight;
+  // this.cols = cols;
+  // this.rows = rows;
+  // this.spriteWidth = imgWidth / cols;
+  // this.spriteHeight = imgHeight / rows;
+  // this.currentFrame = 0;
+  // this.srcX;
+  // this.srcY;
+  // this.srcy = 0;
+  //this.animations = animations;
   this.render = function() {
-    ctx.fillStyle = this.color;
-    ctx.fillRect(this.x, this.y, this.width, this.height);
+    // ctx.fillStyle = this.color;
+    // ctx.fillRect(this.x, this.y, this.width, this.height);
+    // ctx.drawImage(currentInput, this.srcX, this.srcY, this.x - 20, this.y - 40, 40, 40, this.cols, 0)
+    
+    
+    
+
+    ctx.drawImage(currentInput, frameX, frameY, 64,  78, this.x - 20, this.y - 40, 40, 50);
+    //ctx.drawImage(character,srcX,srcY,width,height,x,y,width,height); REFERENCE
+  }
+}
+function animationStepper(){
+  if (currentInput===moveRight){
+    
+    frameY=0;
+    if (frameCount<9) {
+      frameCount++;
+      frameX+=64;
+    } else {
+      frameCount=1;
+      frameX=0;
+    }
+    console.log(frameCount);
+    console.log(frameY);
+  }
+  if (currentInput===moveLeft){
+    
+    frameY=0;
+    if (frameCount<9) {
+      frameCount++;
+      frameX+=64;
+    } else {
+      frameCount=1;
+      frameX=0;
+    }
+    console.log(frameCount);
+    console.log(frameY);
+  }
+  if (currentInput === moveUp){
+    frameY=0;
+    frameX=0;
+    frameCount=1;
+    // frameY=0;
+    // if (frameCount<9) {
+    //   frameCount++;
+    //   frameX+=63.88888888888;
+    // } else {
+    //   frameCount=1;
+    //   frameX=0;
+    // }
+    // console.log(frameCount);
+    // console.log(frameY);
   }
 }
 
+function animations(){
+  if (holdLeft === true){
+      currentInput = moveLeft;
+      console.log('left animation');
+    }
+  if (holdRight === true){
+      currentInput = moveRight;
+      console.log('right animation');
+  } 
+  if (holdLeft===false && holdRight===false){
+      currentInput = moveUp;
+  }
+
+}
+
 const detectHit = () => {
-    /////////////// ENEMY
-    // check for collision on x axis
-    // if (hero.x + hero.width > enemy.x &&
-    //     hero.x < enemy.x + enemy.width &&
-    //     hero.y + hero.height > enemy.y &&
-    //     hero.y < enemy.y + enemy.height)
-    // {
-    //     // enemy = false;
-    //     health -= 50;
-    //     hero.y = enemy.y;
-    //     console.log('collision!')
-    //     yVelocity=-2;
-    // }
    
     for (i=0;i<tite.length;i++){
       if (hero.x + hero.width > tite[i].x && 
@@ -377,7 +449,7 @@ function lose(){
   }
 }
 function win(){
-  if (hero.x <= 30 && hero.y <= 60){
+  if (hero.x <= 30 && hero.y <= 80){
     currentStatus.textContent='YOU ESCAPED!'
     xVelocity=0;
     clearInterval(runGame);
@@ -403,7 +475,8 @@ function startGame(){
   currentStatus.textContent='ESCAPE THE CAVE'
   console.log('game started');
 
-  hero = new Crawler(140, 380, 15, -15, 'white');
+  hero = new Crawler(140, 380, 15, -15, 'red');
+  
 }
 
 
@@ -411,6 +484,8 @@ function startGame(){
 
 
 const gameLoop = () => {
+  animations();
+  animationStepper();
 
   hero.x+=xVelocity;
   hero.y+=yVelocity;
@@ -433,7 +508,7 @@ const gameLoop = () => {
         grounded=true;
         yVelocity=0;
         hero.y = plat[i].y + 2;
-        console.log('landing');   
+        // console.log('landing');   
     } 
   } 
 
@@ -454,14 +529,6 @@ const gameLoop = () => {
       ctx.drawImage(rock, tite[i].x, tite[i].y, tite[i].width, tite[i].height);
     } 
   
-    ///////////////////////////////
-    // if (enemy.alive) {
-  
-    // enemy.render()
-   
-    // }
-    //////////////////////////////
-    // exit.render();
     lose();
     win();
    
@@ -474,6 +541,8 @@ const gameLoop = () => {
       ctx.drawImage(ledge, plat[i].x, plat[i].y, plat[i].width, plat[i].height);
     } 
 
+    
+    ///setting default 
     hero.render();
 }
 
@@ -498,14 +567,18 @@ function keyUp(e) {
   switch (e.keyCode) {
       case 37:
           holdLeft=false;
+          console.log('left is now false');
+          frameCount=1;
           break;
       case 38:
           if (yVelocity<-3) {
-              yVelocity-=3;
+              // yVelocity-=3;
           }
           break;
       case 39:
           holdRight=false;
+          console.log('right is now false');
+          frameCount=1;
           break;
   }
 }
@@ -523,9 +596,16 @@ document.addEventListener('DOMContentLoaded', () => {
   fail = document.getElementById('deathMessage');
   instructions = document.getElementById('text');
   complete = document.getElementById('winMessage'); 
+/////// MOVEMENT
+  moveLeft = document.createElement('img');
+  moveLeft.setAttribute('src', "./assets/images/walkLEFT.png");
 
-  
+  moveRight = document.createElement('img');
+  moveRight.setAttribute('src', "./assets/images/walkRIGHT.png");
 
+  moveUp = document.createElement('img');
+  moveUp.setAttribute('src', "./assets/images/Falling.png");
+///////
   rock = document.createElement('img');
   rock.setAttribute('src', "https://i.imgur.com/UrwoLS0.png");
 
@@ -540,10 +620,10 @@ document.addEventListener('DOMContentLoaded', () => {
   game.setAttribute('width', 800);
   ctx = game.getContext('2d');
   // CHARACTER REFS
-  hero = new Crawler(120, 340, 15, -15, 'white');
+  hero = new Crawler(120, 340, 15, -15);
   // 120, 380 START POINT
   document.addEventListener('keydown', keyDown);
-  document.addEventListener('keyUp', keyUp);
+  document.addEventListener('keyup', keyUp);
   restartButton.addEventListener('click', startGame);
   playButton.addEventListener('click', startGame);
   let runGame = clearInterval(gameLoop);
