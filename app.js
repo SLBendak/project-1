@@ -65,14 +65,14 @@ plat.push({
 });
 //plat 4
 plat.push({
-  x: 590,
+  x: 570,
   y: 380,
-  width: 60,
+  width: 80,
   height: 20,
   color: '#1d7a63'
 });
 tite.push({
-  x: 610,
+  x: 600,
   y: 360,
   width: 10,
   height: 20,
@@ -208,7 +208,7 @@ plat.push({
   color: '#1d7a63'
 });
 tite.push({
-  x: 270,
+  x: 260,
   y: 160,
   width: 10,
   height: 20,
@@ -311,6 +311,7 @@ plat.push({
   width: 60,
   height: 20,
   color: '#1d7a63'
+  
 });
 
 // Crawler Constructor function
@@ -328,25 +329,12 @@ function Crawler(x, y, width, height, color) {
 }
 
 const detectHit = () => {
-    /////////////// ENEMY
-    // check for collision on x axis
-    // if (hero.x + hero.width > enemy.x &&
-    //     hero.x < enemy.x + enemy.width &&
-    //     hero.y + hero.height > enemy.y &&
-    //     hero.y < enemy.y + enemy.height)
-    // {
-    //     // enemy = false;
-    //     health -= 50;
-    //     hero.y = enemy.y;
-    //     console.log('collision!')
-    //     yVelocity=-2;
-    // }
    
     for (i=0;i<tite.length;i++){
-      if (hero.x + hero.width > tite[i].x &&
-        hero.x + 5 < tite[i].x + tite[i].width &&
-        hero.y + hero.height > tite[i].y &&
-        hero.y - 1< tite[i].y + tite[i].height)
+      if (hero.x + hero.width > tite[i].x && 
+        hero.x< tite[i].x + tite[i].width && //+5
+        hero.y + hero.height + 5 > tite[i].y &&
+        hero.y - 15< tite[i].y + tite[i].height) //-1
       {
         health -= 5;
         console.log('collision!')
@@ -368,12 +356,6 @@ function gameEdge() {
 function lose(){
   if (health == 0){
     currentStatus.textContent='YOU DIED!'
-
-    for (var i = 0; i < plat.length; i++) {
-      ctx.fillStyle = (plat[i].color);
-      ctx.fillRect(plat[i].x, plat[i].y, plat[i].width, plat[i].height);
-    } 
-
     clearInterval(runGame);
     
     message.style.display = 'block';
@@ -382,12 +364,6 @@ function lose(){
   }
 }
 function win(){
-
-  for (var i = 0; i < plat.length; i++) {
-    ctx.fillStyle = (plat[i].color);
-    ctx.fillRect(plat[i].x, plat[i].y, plat[i].width, plat[i].height);
-  } 
-
   if (hero.x <= 30 && hero.y <= 60){
     currentStatus.textContent='YOU ESCAPED!'
     xVelocity=0;
@@ -438,12 +414,12 @@ const gameLoop = () => {
   grounded=false;
   for (i=0;i<plat.length;i++){
     if (hero.x+10 >= plat[i].x && 
-      hero.x <= plat[i].x + plat[i].width &&
-      hero.y >= plat[i].y && 
+      hero.x <= plat[i].x + plat[i].width - 10 &&
+      hero.y >= plat[i].y + 2 && 
       hero.y <= plat[i].y + plat[i].height) {
         grounded=true;
         yVelocity=0;
-        hero.y = plat[i].y;
+        hero.y = plat[i].y + 2;
         console.log('landing');   
     } 
   } 
@@ -463,19 +439,8 @@ const gameLoop = () => {
     // print stalagtite
     for (var i = 0; i < tite.length; i++) {
       ctx.drawImage(rock, tite[i].x, tite[i].y, tite[i].width, tite[i].height);
-      // ctx.fillStyle = (tite[i].color);
-      // ctx.fillRect(tite[i].x, tite[i].y, tite[i].width, tite[i].height);
-      
     } 
   
-    ///////////////////////////////
-    // if (enemy.alive) {
-  
-    // enemy.render()
-   
-    // }
-    //////////////////////////////
-    // exit.render();
     lose();
     win();
    
@@ -485,8 +450,6 @@ const gameLoop = () => {
 
     // print walls
     for (var i = 0; i < plat.length; i++) {
-      // ctx.fillStyle = (plat[i].color);
-      // ctx.fillRect(plat[i].x, plat[i].y, plat[i].width, plat[i].height);
       ctx.drawImage(ledge, plat[i].x, plat[i].y, plat[i].width, plat[i].height);
     } 
 
@@ -540,11 +503,13 @@ document.addEventListener('DOMContentLoaded', () => {
   instructions = document.getElementById('text');
   complete = document.getElementById('winMessage'); 
 
+  
+
   rock = document.createElement('img');
   rock.setAttribute('src', "https://i.imgur.com/UrwoLS0.png");
 
   ledge = document.createElement('img');
-  ledge.setAttribute('src', "https://i.imgur.com/qy3bsIJ.png");
+  ledge.setAttribute('src', "https://i.imgur.com/6LqdT7Z.png");
 
   exitCave = document.createElement('img');
   exitCave.setAttribute('src', "https://i.imgur.com/sKb7XhR.png");
@@ -555,7 +520,6 @@ document.addEventListener('DOMContentLoaded', () => {
   ctx = game.getContext('2d');
   // CHARACTER REFS
   hero = new Crawler(120, 340, 15, -15, 'white');
-  // exit = new Crawler(0, 0, 40, 60, 'orange')
   // 120, 380 START POINT
   document.addEventListener('keydown', keyDown);
   document.addEventListener('keyUp', keyUp);

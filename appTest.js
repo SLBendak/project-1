@@ -208,7 +208,7 @@ plat.push({
   color: '#1d7a63'
 });
 tite.push({
-  x: 270,
+  x: 260,
   y: 160,
   width: 10,
   height: 20,
@@ -369,12 +369,6 @@ function gameEdge() {
 function lose(){
   if (health == 0){
     currentStatus.textContent='YOU DIED!'
-
-    // for (var i = 0; i < plat.length; i++) {
-    //   ctx.fillStyle = (plat[i].color);
-    //   ctx.fillRect(plat[i].x, plat[i].y, plat[i].width, plat[i].height);
-    // } 
-
     clearInterval(runGame);
     
     message.style.display = 'block';
@@ -383,12 +377,6 @@ function lose(){
   }
 }
 function win(){
-
-  // for (var i = 0; i < plat.length; i++) {
-  //   ctx.fillStyle = (plat[i].color);
-  //   ctx.fillRect(plat[i].x, plat[i].y, plat[i].width, plat[i].height);
-  // } 
-
   if (hero.x <= 30 && hero.y <= 60){
     currentStatus.textContent='YOU ESCAPED!'
     xVelocity=0;
@@ -464,9 +452,6 @@ const gameLoop = () => {
     // print stalagtite
     for (var i = 0; i < tite.length; i++) {
       ctx.drawImage(rock, tite[i].x, tite[i].y, tite[i].width, tite[i].height);
-      // ctx.fillStyle = (tite[i].color);
-      // ctx.fillRect(tite[i].x, tite[i].y, tite[i].width, tite[i].height);
-      
     } 
   
     ///////////////////////////////
@@ -486,8 +471,6 @@ const gameLoop = () => {
 
     // print walls
     for (var i = 0; i < plat.length; i++) {
-      // ctx.fillStyle = (plat[i].color);
-      // ctx.fillRect(plat[i].x, plat[i].y, plat[i].width, plat[i].height);
       ctx.drawImage(ledge, plat[i].x, plat[i].y, plat[i].width, plat[i].height);
     } 
 
@@ -541,6 +524,8 @@ document.addEventListener('DOMContentLoaded', () => {
   instructions = document.getElementById('text');
   complete = document.getElementById('winMessage'); 
 
+  
+
   rock = document.createElement('img');
   rock.setAttribute('src', "https://i.imgur.com/UrwoLS0.png");
 
@@ -556,7 +541,6 @@ document.addEventListener('DOMContentLoaded', () => {
   ctx = game.getContext('2d');
   // CHARACTER REFS
   hero = new Crawler(120, 340, 15, -15, 'white');
-  // exit = new Crawler(0, 0, 40, 60, 'orange')
   // 120, 380 START POINT
   document.addEventListener('keydown', keyDown);
   document.addEventListener('keyUp', keyUp);
