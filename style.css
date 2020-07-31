@@ -54,6 +54,7 @@ html,body {
   
   #top-right {
     grid-area: top-right;
+    font-size: 10px;
   }
   
   main {

@@ -14,6 +14,7 @@ let holdRight=false;
 let frameCount=1;
 let frameY=0;
 let frameX=0;
+let menuScreen=true;
 
 let currentInput;
 
@@ -36,9 +37,8 @@ dead.volume = 0.05;
 var hop = document.getElementById('jumpSound');
 hop.volume = 0.05;
 
-// var menuMusic = document.getElementById('startMusic');
-// menuMusic.volume = 0.05;
-
+var menuMusic = document.getElementById('startMusic');
+menuMusic.volume = 0.05;
 
 
 
@@ -434,7 +434,11 @@ function lose(){
     musicFile.pause();
     musicFile.currentTime=0;
 
-    dead.play();
+    menuScreen=true;
+
+    dead.play(); 
+
+    menuMusic.play();
   }
 }
 function win(){
@@ -447,6 +451,14 @@ function win(){
     message.style.display = 'block';
     restartButton.style.display = 'block';
     complete.style.display = 'block';
+
+    musicFile.pause();
+    musicFile.currentTime=0;
+
+    menuScreen=true;
+
+    menuMusic.play();
+    
   }
   
 }
@@ -467,8 +479,13 @@ function startGame(){
 
   hero = new Crawler(140, 380, 15, -15, 'red');
 
-  
+  menuScreen=false;
+
+  menuMusic.pause();
+  menuMusic.currentTime = 0;
+
   musicFile.play();
+  
   
 }
 
@@ -503,6 +520,7 @@ const gameLoop = () => {
 
     ctx.clearRect(0, 0, game.width, game.height);
     movementDisplay.textContent = `Depth:\n${hero.y-62}`;
+    // movementDisplay.textContent = `${corner}`;
     currentHealth.textContent = `${health}`;
     currentStatus.textContent = `${status}`;
 
@@ -606,6 +624,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
   exitCave = document.createElement('img');
   exitCave.setAttribute('src', "https://i.imgur.com/sKb7XhR.png");
+
+  corner = document.getElementById('img');
+  corner.setAttribute('src', "./assets/images/idle.png");
   // CANVAS CONFIG
   game.setAttribute('height', 400);
   game.setAttribute('width', 800);
@@ -618,4 +639,7 @@ document.addEventListener('DOMContentLoaded', () => {
   restartButton.addEventListener('click', startGame);
   playButton.addEventListener('click', startGame);
   let runGame = clearInterval(gameLoop);
+
+  
+
 })
