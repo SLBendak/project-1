@@ -20,14 +20,15 @@ let currentInput;
 let gravity=1.5;
 let grounded=true;
 
-
-let key = 0;
 let plat = [];
 let tite = [];
 let exit;
 
 
 let health = 100;
+
+var musicFile = document.getElementById('music');
+musicFile.volume = 0.05;
 
 
 //plat 1
@@ -320,6 +321,24 @@ plat.push({
   
 });
 
+
+// function Sound(src) {
+//   this.sound = document.createElement("audio");
+//   this.sound.src = src;
+//   this.sound.setAttribute("preload", "auto");
+//   this.sound.setAttribute("controls", "none");
+//   this.sound.style.display = "none";
+//   document.body.appendChild(this.sound);
+//   this.play = function(){
+//     this.sound.play();
+//   }
+//   this.stop = function(){
+//     this.sound.pause();
+//   }
+// }
+
+
+
 // Crawler Constructor function
 function Crawler(x, y, width, height) {
   this.x = x;
@@ -328,7 +347,7 @@ function Crawler(x, y, width, height) {
   this.height = height;
   this.alive = true;
   this.render = function() {
-    ctx.drawImage(currentInput, frameX, frameY, 65,  49, this.x - 20, this.y - 40, 50, 40);
+    ctx.drawImage(currentInput, frameX, frameY, 65,  49, this.x - 15, this.y - 30, 40, 30);
   }
 }
 
@@ -427,6 +446,10 @@ function lose(){
     message.style.display = 'block';
     restartButton.style.display = 'block';
     fail.style.display = 'block';
+
+    timer = null;
+    musicFile.pause();
+    musicFile.currentTime = 0;
   }
 }
 function win(){
@@ -444,6 +467,7 @@ function win(){
 }
 
 function startGame(){
+  
   runGame = setInterval(gameLoop, 60);
   message.style.display = 'none';
   playButton.style.display = 'none';
@@ -457,7 +481,9 @@ function startGame(){
   console.log('game started');
 
   hero = new Crawler(140, 380, 15, -15, 'red');
+
   
+  musicFile.play();
 }
 
 const gameLoop = () => {
@@ -490,7 +516,7 @@ const gameLoop = () => {
   } 
 
     ctx.clearRect(0, 0, game.width, game.height);
-    movementDisplay.textContent = `Depth:\n${hero.y}`;
+    movementDisplay.textContent = `Depth:\n${hero.y-62}`;
     currentHealth.textContent = `${health}`;
     currentStatus.textContent = `${status}`;
 
@@ -556,6 +582,9 @@ function keyUp(e) {
 
 document.addEventListener('DOMContentLoaded', () => {
   console.log('Dom loaded')
+
+  // mySound = new sound("./assets/sounds/gameSound.mp3");
+
   // DOM REFS
   movementDisplay = document.getElementById('movement');
   game = document.getElementById('game');
@@ -568,6 +597,8 @@ document.addEventListener('DOMContentLoaded', () => {
   fail = document.getElementById('deathMessage');
   instructions = document.getElementById('text');
   complete = document.getElementById('winMessage'); 
+
+  
   /////// MOVEMENT
   moveLeft = document.createElement('img');
   moveLeft.setAttribute('src', "./assets/images/walkLEFTcorrect.png");
