@@ -20,14 +20,28 @@ let currentInput;
 let gravity=1.5;
 let grounded=true;
 
-
-let key = 0;
 let plat = [];
 let tite = [];
 let exit;
 
 
 let health = 100;
+
+var musicFile = document.getElementById('music');
+musicFile.volume = 0.05;
+
+var dead = document.getElementById('deadSound');
+dead.volume = 0.05;
+
+var hop = document.getElementById('jumpSound');
+hop.volume = 0.05;
+
+// var menuMusic = document.getElementById('startMusic');
+// menuMusic.volume = 0.05;
+
+
+
+
 
 
 //plat 1
@@ -265,7 +279,7 @@ tite.push({
   width: 10,
   height: 20,
   color: 'lightblue',
-  img: "https://i.imgur.com/UrwoLS0.png",
+  img: "lightblue",
   
 });
 //
@@ -320,92 +334,63 @@ plat.push({
   
 });
 
+
 // Crawler Constructor function
-//function Crawler(x, y, width, height, image, imgWidth, imgHeight, cols, rows){
 function Crawler(x, y, width, height) {
   this.x = x;
   this.y = y;
   this.width = width;
   this.height = height;
-  // this.color = color;
   this.alive = true;
-  
-  //this.sprite.src = image;
-  // this.imgWidth = imgWidth;
-  // this.imgHeight = imgHeight;
-  // this.cols = cols;
-  // this.rows = rows;
-  // this.spriteWidth = imgWidth / cols;
-  // this.spriteHeight = imgHeight / rows;
-  // this.currentFrame = 0;
-  // this.srcX;
-  // this.srcY;
-  // this.srcy = 0;
-  //this.animations = animations;
   this.render = function() {
-    // ctx.fillStyle = this.color;
-    // ctx.fillRect(this.x, this.y, this.width, this.height);
-    // ctx.drawImage(currentInput, this.srcX, this.srcY, this.x - 20, this.y - 40, 40, 40, this.cols, 0)
-    
-    
-    
-
-    ctx.drawImage(currentInput, frameX, frameY, 64,  78, this.x - 20, this.y - 40, 40, 50);
-    //ctx.drawImage(character,srcX,srcY,width,height,x,y,width,height); REFERENCE
+    ctx.drawImage(currentInput, frameX, frameY, 65,  49, this.x - 15, this.y - 30, 40, 30);
   }
 }
+
 function animationStepper(){
   if (currentInput===moveRight){
     
     frameY=0;
-    if (frameCount<9) {
+    frameX=0;
+    if (frameCount<8) {
       frameCount++;
-      frameX+=64;
+      frameX+=65;
     } else {
       frameCount=1;
       frameX=0;
     }
-    console.log(frameCount);
-    console.log(frameY);
   }
   if (currentInput===moveLeft){
     
     frameY=0;
-    if (frameCount<9) {
+    frameX=0;
+    if (frameCount<8) {
       frameCount++;
-      frameX+=64;
+      frameX+=65;
     } else {
       frameCount=1;
       frameX=0;
     }
-    console.log(frameCount);
-    console.log(frameY);
   }
   if (currentInput === moveUp){
     frameY=0;
     frameX=0;
-    frameCount=1;
-    // frameY=0;
-    // if (frameCount<9) {
-    //   frameCount++;
-    //   frameX+=63.88888888888;
-    // } else {
-    //   frameCount=1;
-    //   frameX=0;
-    // }
-    // console.log(frameCount);
-    // console.log(frameY);
+    if (frameCount<8) {
+      frameCount++;
+      frameX+=65;
+    } else {
+      frameCount=0;
+      frameX=0;
+    }
   }
 }
 
 function animations(){
   if (holdLeft === true){
       currentInput = moveLeft;
-      console.log('left animation');
-    }
+  }
   if (holdRight === true){
       currentInput = moveRight;
-      console.log('right animation');
   } 
   if (holdLeft===false && holdRight===false){
       currentInput = moveUp;
@@ -417,12 +402,11 @@ const detectHit = () => {
    
     for (i=0;i<tite.length;i++){
       if (hero.x + hero.width > tite[i].x && 
-        hero.x< tite[i].x + tite[i].width && //+5
+        hero.x< tite[i].x + tite[i].width && 
         hero.y + hero.height + 5 > tite[i].y &&
-        hero.y - 15< tite[i].y + tite[i].height) //-1
+        hero.y - 15< tite[i].y + tite[i].height)
       {
         health -= 5;
-        console.log('collision!')
         yVelocity=-1;
         xVelocity*= -1;
       }
@@ -446,6 +430,11 @@ function lose(){
     message.style.display = 'block';
     restartButton.style.display = 'block';
     fail.style.display = 'block';
+
+    musicFile.pause();
+    musicFile.currentTime=0;
+
+    dead.play();
   }
 }
 function win(){
@@ -463,6 +452,7 @@ function win(){
 }
 
 function startGame(){
+  
   runGame = setInterval(gameLoop, 60);
   message.style.display = 'none';
   playButton.style.display = 'none';
@@ -476,14 +466,14 @@ function startGame(){
   console.log('game started');
 
   hero = new Crawler(140, 380, 15, -15, 'red');
+
+  
+  musicFile.play();
   
 }
 
-
-
-
-
 const gameLoop = () => {
+
   animations();
   animationStepper();
 
@@ -508,19 +498,13 @@ const gameLoop = () => {
         grounded=true;
         yVelocity=0;
         hero.y = plat[i].y + 2;
-        // console.log('landing');   
     } 
   } 
 
-  // clear the cavas
     ctx.clearRect(0, 0, game.width, game.height);
-  // display the x, y coordinates of our hero onto the DOM
-    movementDisplay.textContent = `Depth:${hero.y}`;
-  // display health of hero on DOM
+    movementDisplay.textContent = `Depth:\n${hero.y-62}`;
     currentHealth.textContent = `${health}`;
-  // display status
     currentStatus.textContent = `${status}`;
-
 
     ctx.drawImage(exitCave, 0, 0, 80, 100)
 
@@ -534,31 +518,35 @@ const gameLoop = () => {
    
     gameEdge();
     detectHit(); 
-  
 
     // print walls
     for (var i = 0; i < plat.length; i++) {
       ctx.drawImage(ledge, plat[i].x, plat[i].y, plat[i].width, plat[i].height);
     } 
 
-    
-    ///setting default 
     hero.render();
 }
+
+// var soundFlag = true;
 
 function keyDown(e) {
   switch (e.keyCode) {
       case 37:
           holdLeft=true;
+          holdRight=false;
           xVelocity=-5;
           break;
       case 38:
         if (grounded == true) {
           yVelocity=-5;
+          hop.pause();
+          hop.currentTime = 0;
+          hop.play();
         }
           break;
       case 39:
           holdRight=true;
+          holdLeft=false;
           xVelocity=5;
           break;
   }
@@ -567,7 +555,6 @@ function keyUp(e) {
   switch (e.keyCode) {
       case 37:
           holdLeft=false;
-          console.log('left is now false');
           frameCount=1;
           break;
       case 38:
@@ -577,13 +564,16 @@ function keyUp(e) {
           break;
       case 39:
           holdRight=false;
-          console.log('right is now false');
           frameCount=1;
           break;
   }
 }
+
 document.addEventListener('DOMContentLoaded', () => {
   console.log('Dom loaded')
+ 
+  // mySound = new sound("./assets/sounds/gameSound.mp3");
+
   // DOM REFS
   movementDisplay = document.getElementById('movement');
   game = document.getElementById('game');
@@ -596,16 +586,18 @@ document.addEventListener('DOMContentLoaded', () => {
   fail = document.getElementById('deathMessage');
   instructions = document.getElementById('text');
   complete = document.getElementById('winMessage'); 
-/////// MOVEMENT
+
+  
+  /////// MOVEMENT
   moveLeft = document.createElement('img');
-  moveLeft.setAttribute('src', "./assets/images/walkLEFT.png");
+  moveLeft.setAttribute('src', "./assets/images/walkLEFTcorrect.png");
 
   moveRight = document.createElement('img');
-  moveRight.setAttribute('src', "./assets/images/walkRIGHT.png");
+  moveRight.setAttribute('src', "./assets/images/walkRIGHTcorrect.png");
 
   moveUp = document.createElement('img');
-  moveUp.setAttribute('src', "./assets/images/Falling.png");
-///////
+  moveUp.setAttribute('src', "./assets/images/JUMPcorrect.png");
+  /////// SPRITES
   rock = document.createElement('img');
   rock.setAttribute('src', "https://i.imgur.com/UrwoLS0.png");
 
@@ -614,7 +606,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   exitCave = document.createElement('img');
   exitCave.setAttribute('src', "https://i.imgur.com/sKb7XhR.png");
-
   // CANVAS CONFIG
   game.setAttribute('height', 400);
   game.setAttribute('width', 800);

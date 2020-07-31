@@ -14,6 +14,7 @@ let holdRight=false;
 let frameCount=1;
 let frameY=0;
 let frameX=0;
+let menuScreen=true;
 
 let currentInput;
 
@@ -35,6 +36,12 @@ dead.volume = 0.05;
 
 var hop = document.getElementById('jumpSound');
 hop.volume = 0.05;
+
+var menuMusic = document.getElementById('startMusic');
+menuMusic.volume = 0.05;
+
+
+
 
 
 //plat 1
@@ -328,23 +335,6 @@ plat.push({
 });
 
 
-// function Sound(src) {
-//   this.sound = document.createElement("audio");
-//   this.sound.src = src;
-//   this.sound.setAttribute("preload", "auto");
-//   this.sound.setAttribute("controls", "none");
-//   this.sound.style.display = "none";
-//   document.body.appendChild(this.sound);
-//   this.play = function(){
-//     this.sound.play();
-//   }
-//   this.stop = function(){
-//     this.sound.pause();
-//   }
-// }
-
-
-
 // Crawler Constructor function
 function Crawler(x, y, width, height) {
   this.x = x;
@@ -444,7 +434,11 @@ function lose(){
     musicFile.pause();
     musicFile.currentTime=0;
 
-    dead.play();
+    menuScreen=true;
+
+    dead.play(); 
+
+    menuMusic.play();
   }
 }
 function win(){
@@ -457,6 +451,14 @@ function win(){
     message.style.display = 'block';
     restartButton.style.display = 'block';
     complete.style.display = 'block';
+
+    musicFile.pause();
+    musicFile.currentTime=0;
+
+    menuScreen=true;
+
+    menuMusic.play();
+    
   }
   
 }
@@ -477,8 +479,13 @@ function startGame(){
 
   hero = new Crawler(140, 380, 15, -15, 'red');
 
-  
+  menuScreen=false;
+
+  menuMusic.pause();
+  menuMusic.currentTime = 0;
+
   musicFile.play();
+  
   
 }
 
@@ -581,7 +588,7 @@ function keyUp(e) {
 
 document.addEventListener('DOMContentLoaded', () => {
   console.log('Dom loaded')
-
+ 
   // mySound = new sound("./assets/sounds/gameSound.mp3");
 
   // DOM REFS
@@ -628,4 +635,7 @@ document.addEventListener('DOMContentLoaded', () => {
   restartButton.addEventListener('click', startGame);
   playButton.addEventListener('click', startGame);
   let runGame = clearInterval(gameLoop);
+
+  
+
 })
