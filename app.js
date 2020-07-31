@@ -328,7 +328,7 @@ function Crawler(x, y, width, height) {
   this.height = height;
   this.alive = true;
   this.render = function() {
-    ctx.drawImage(currentInput, frameX, frameY, 64,  78, this.x - 20, this.y - 40, 40, 50);
+    ctx.drawImage(currentInput, frameX, frameY, 65,  49, this.x - 20, this.y - 40, 50, 40);
   }
 }
 
@@ -336,9 +336,10 @@ function animationStepper(){
   if (currentInput===moveRight){
     
     frameY=0;
+    frameX=0;
     if (frameCount<8) {
       frameCount++;
-      frameX+=64;
+      frameX+=65;
     } else {
       frameCount=1;
       frameX=0;
@@ -349,9 +350,10 @@ function animationStepper(){
   if (currentInput===moveLeft){
     
     frameY=0;
+    frameX=0;
     if (frameCount<8) {
       frameCount++;
-      frameX+=64;
+      frameX+=65;
     } else {
       frameCount=1;
       frameX=0;
@@ -360,9 +362,19 @@ function animationStepper(){
     console.log(frameY);
   }
   if (currentInput === moveUp){
+  // if (grounded === false){
+    // frameY=0;
+    // frameX=0;
+    // frameCount=1;
     frameY=0;
     frameX=0;
-    frameCount=1;
+    if (frameCount<8) {
+      frameCount++;
+      frameX+=65;
+    } else {
+      frameCount=0;
+      frameX=0;
+    }
   }
 }
 
@@ -376,6 +388,7 @@ function animations(){
       console.log('right animation');
   } 
   if (holdLeft===false && holdRight===false){
+  // if (grounded === false){
       currentInput = moveUp;
   }
 
@@ -506,6 +519,7 @@ function keyDown(e) {
   switch (e.keyCode) {
       case 37:
           holdLeft=true;
+          holdRight=false;
           xVelocity=-5;
           break;
       case 38:
@@ -515,6 +529,7 @@ function keyDown(e) {
           break;
       case 39:
           holdRight=true;
+          holdLeft=false;
           xVelocity=5;
           break;
   }
@@ -555,13 +570,13 @@ document.addEventListener('DOMContentLoaded', () => {
   complete = document.getElementById('winMessage'); 
   /////// MOVEMENT
   moveLeft = document.createElement('img');
-  moveLeft.setAttribute('src', "./assets/images/walkLEFT.png");
+  moveLeft.setAttribute('src', "./assets/images/walkLEFTcorrect.png");
 
   moveRight = document.createElement('img');
-  moveRight.setAttribute('src', "./assets/images/walkRIGHT.png");
+  moveRight.setAttribute('src', "./assets/images/walkRIGHTcorrect.png");
 
   moveUp = document.createElement('img');
-  moveUp.setAttribute('src', "./assets/images/Falling.png");
+  moveUp.setAttribute('src', "./assets/images/JUMPcorrect.png");
   /////// SPRITES
   rock = document.createElement('img');
   rock.setAttribute('src', "https://i.imgur.com/UrwoLS0.png");
