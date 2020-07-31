@@ -30,6 +30,12 @@ let health = 100;
 var musicFile = document.getElementById('music');
 musicFile.volume = 0.05;
 
+var dead = document.getElementById('deadSound');
+dead.volume = 0.05;
+
+var hop = document.getElementById('jumpSound');
+hop.volume = 0.05;
+
 
 //plat 1
 plat.push({
@@ -363,8 +369,6 @@ function animationStepper(){
       frameCount=1;
       frameX=0;
     }
-    console.log(frameCount);
-    console.log(frameY);
   }
   if (currentInput===moveLeft){
     
@@ -377,14 +381,8 @@ function animationStepper(){
       frameCount=1;
       frameX=0;
     }
-    console.log(frameCount);
-    console.log(frameY);
   }
   if (currentInput === moveUp){
-  // if (grounded === false){
-    // frameY=0;
-    // frameX=0;
-    // frameCount=1;
     frameY=0;
     frameX=0;
     if (frameCount<8) {
@@ -400,14 +398,11 @@ function animationStepper(){
 function animations(){
   if (holdLeft === true){
       currentInput = moveLeft;
-      console.log('left animation');
-    }
+  }
   if (holdRight === true){
       currentInput = moveRight;
-      console.log('right animation');
   } 
   if (holdLeft===false && holdRight===false){
-  // if (grounded === false){
       currentInput = moveUp;
   }
 
@@ -417,12 +412,11 @@ const detectHit = () => {
    
     for (i=0;i<tite.length;i++){
       if (hero.x + hero.width > tite[i].x && 
-        hero.x< tite[i].x + tite[i].width && //+5
+        hero.x< tite[i].x + tite[i].width && 
         hero.y + hero.height + 5 > tite[i].y &&
-        hero.y - 15< tite[i].y + tite[i].height) //-1
+        hero.y - 15< tite[i].y + tite[i].height)
       {
         health -= 5;
-        console.log('collision!')
         yVelocity=-1;
         xVelocity*= -1;
       }
@@ -447,9 +441,10 @@ function lose(){
     restartButton.style.display = 'block';
     fail.style.display = 'block';
 
-    timer = null;
     musicFile.pause();
-    musicFile.currentTime = 0;
+    musicFile.currentTime=0;
+
+    dead.play();
   }
 }
 function win(){
@@ -484,6 +479,7 @@ function startGame(){
 
   
   musicFile.play();
+  
 }
 
 const gameLoop = () => {
@@ -541,6 +537,8 @@ const gameLoop = () => {
     hero.render();
 }
 
+// var soundFlag = true;
+
 function keyDown(e) {
   switch (e.keyCode) {
       case 37:
@@ -551,6 +549,9 @@ function keyDown(e) {
       case 38:
         if (grounded == true) {
           yVelocity=-5;
+          hop.pause();
+          hop.currentTime = 0;
+          hop.play();
         }
           break;
       case 39:
@@ -564,7 +565,6 @@ function keyUp(e) {
   switch (e.keyCode) {
       case 37:
           holdLeft=false;
-          console.log('left is now false');
           frameCount=1;
           break;
       case 38:
@@ -574,7 +574,6 @@ function keyUp(e) {
           break;
       case 39:
           holdRight=false;
-          console.log('right is now false');
           frameCount=1;
           break;
   }
