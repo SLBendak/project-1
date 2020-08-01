@@ -1,4 +1,4 @@
-# SLIME https://slbendak.github.io/project-1/
+# WISHBONE https://slbendak.github.io/project-1/
 
 #### For my game project i built a classic style platformer with a fun twist, much like my character there were many obstacles to overcome along the way to success. 
 
